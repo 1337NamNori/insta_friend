@@ -16,7 +16,7 @@
 
                 <div class="row mt-2">
                     <div class="col col-lg-6 col-sm-12 d-flex justify-content-between">
-                        <p><strong>9 </strong>posts</p>
+                        <p><strong>{{ $profile->user->posts->count() }} </strong>posts</p>
                         <p><strong>538 </strong>followers</p>
                         <p><strong>73 </strong>following</p>
                     </div>
@@ -34,10 +34,10 @@
                 <img src="/images/avatar.jpg" class="rounded-circle w-100" alt="Profile Avatar">
             </div>
             <div class="col col-8 p-3 d-flex flex-column justify-content-center">
-                    <h3 class="p-0">{{ $profile->user->username }}</h3>
-                    <a href="{{ route('profiles.edit',Auth::user()->id) }}"
-                       class="btn btn-sm btn-outline-secondary w-100">Edit
-                        profile</a>
+                <h3 class="p-0">{{ $profile->user->username }}</h3>
+                <a href="{{ route('profiles.edit',Auth::user()->id) }}"
+                   class="btn btn-sm btn-outline-secondary w-100">Edit
+                    profile</a>
             </div>
             <div class="col col-12 p-3">
                 <strong>{{ $profile->name }}</strong>
@@ -48,7 +48,7 @@
             <div class="col col-12 mt-2 d-flex justify-content-center">
                 <div class="row w-100">
                     <div class="col col-4 d-flex flex-column align-items-center">
-                        <strong>9 </strong>
+                        <strong>{{ $profile->user->posts->count() }} </strong>
                         <p>posts</p>
                     </div>
                     <div class="col col-4 d-flex flex-column align-items-center">
@@ -63,11 +63,13 @@
             </div>
         </div>
         <div class="row no-gutters">
-            @for($i=0;$i<9;$i++)
+            @foreach($posts as $post)
                 <div class="col col-4 mt-md-3 px-md-2">
-                    <img src="/images/avatar.jpg" alt="Post" class="w-100">
+                    <a href="{{ route('posts.show',$post->id) }}">
+                        <img src="/storage/{{ $post->image }}" alt="Post" class="w-100">
+                    </a>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 @endsection
