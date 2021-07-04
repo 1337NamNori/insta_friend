@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('home'));
 });
+
+Route::resource('profiles', \App\Http\Controllers\ProfileController::class);
+Route::resource('posts', \App\Http\Controllers\PostController::class);
 
 \Illuminate\Support\Facades\Auth::routes();
 
