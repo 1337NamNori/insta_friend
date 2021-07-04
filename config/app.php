@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'InstaFriend'),
 
     /*
     |--------------------------------------------------------------------------
@@ -119,7 +119,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY','base64:Oi4ailgEps6V23UaYn+S1VBmt517EU0rBSd5WS2vT68='),
 
     'cipher' => 'AES-256-CBC',
 
