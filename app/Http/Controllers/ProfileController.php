@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
@@ -21,17 +22,32 @@ class ProfileController extends Controller
 
     public function update(Profile $profile)
     {
-        $profile->update($this->validatedData());
+        $data = request()->validate([
+            'name' => 'required',
+            'description' => '',
+            'url' => 'nullable|URL',
+            'avatar' => 'sometimes|file|image|max:5000'
+        ]);
+        if (request()->has('avatar')) {
+            if ($profile->avatar && is_file(public_path('storage/' . $profile->avatar))) {
+                unlink(public_path('storage/' . $profile->avatar));
+            }
+        }
+        $profile->update($data);
+        $this->storeImage($profile);
         return redirect(route('profiles.show', $profile->id));
     }
 
-    protected function validatedData()
+    protected function storeImage($profile)
     {
-        return request()->validate([
-            'name' => 'required',
-            'description' => '',
-            'url' => 'nullable|URL'
-        ]);
+        if (request()->has('avatar')) {
+            $imagePath = request('avatar')->store('avatars', 'public');
+            $image = Image::make(public_path('storage/' . $imagePath))->fit(300, 300);
+            $image->save();
+            $profile->update([
+                'avatar' => $imagePath
+            ]);
+        }
     }
 
 }

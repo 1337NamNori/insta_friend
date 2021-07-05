@@ -10002,3 +10002,18 @@ h3 {
     border-color: #dee2e6;
   }
 }
+body {
+  background-color: #fafafa;
+}
+
+.btn-clear {
+  background-color: transparent !important;
+  border-style: none !important;
+  cursor: pointer;
+}
+
+.btn-clear:active,
+.btn-clear:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}

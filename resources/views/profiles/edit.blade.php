@@ -7,7 +7,7 @@
                     <div class="card-header">{{ __('Edit profile') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('profiles.update',Auth::user()->id) }}">
+                        <form method="POST" action="{{ route('profiles.update',Auth::user()->id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
 
@@ -55,6 +55,20 @@
 
                                     @error('url')
                                     <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="avatar"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Profile avatar') }}</label>
+
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control-file" id="avatar" name="avatar">
+                                    @error('avatar')
+                                    <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
