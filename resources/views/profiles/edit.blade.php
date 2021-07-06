@@ -7,7 +7,7 @@
                     <div class="card-header">{{ __('Edit profile') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('profiles.update',Auth::user()->id) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('profiles.update',Auth::user()->profile) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
 

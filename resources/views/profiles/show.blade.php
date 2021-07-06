@@ -13,7 +13,7 @@
             <div class="col col-8 d-flex flex-column justify-content-center ">
                 <div class="d-flex align-items-center mb-2">
                     <h3 class="mb-0 mr-3">{{ $profile->user->username }}</h3>
-                    <a href="{{ route('profiles.edit',Auth::user()->id) }}"
+                    <a href="{{ route('profiles.edit',Auth::user()->profile) }}"
                        class="btn btn-sm btn-outline-secondary">Edit
                         profile</a>
                 </div>
@@ -42,7 +42,7 @@
             {{--            Name and Edit Btn--}}
             <div class="col col-8 p-3 d-flex flex-column justify-content-center">
                 <h3 class="p-0">{{ $profile->user->username }}</h3>
-                <a href="{{ route('profiles.edit',Auth::user()->id) }}"
+                <a href="{{ route('profiles.edit',Auth::user()->profile) }}"
                    class="btn btn-sm btn-outline-secondary w-100">Edit
                     profile</a>
             </div>

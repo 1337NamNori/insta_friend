@@ -36,7 +36,7 @@ class ProfileController extends Controller
         }
         $profile->update($data);
         $this->storeImage($profile);
-        return redirect(route('profiles.show', $profile->id));
+        return redirect(route('profiles.show', $profile));
     }
 
     protected function storeImage($profile)

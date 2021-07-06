@@ -58,6 +58,7 @@ class User extends Authenticatable
         static::created(function ($user) {
             $user->profile()->create([
                 'name' => $user->username,
+                'username' => $user->username,
                 'description' => 'Hello! I am ' . $user->username,
             ]);
         });

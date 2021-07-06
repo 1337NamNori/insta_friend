@@ -27,11 +27,11 @@ class PostController extends Controller
         $path = '/images/posts/' . Str::random(8) . '-' . $image->getClientOriginalName();
         Image::make($image)->fit(1200, 1200)->save(public_path($path));
 
-        auth()->user()->posts()->create([
+        $post = auth()->user()->posts()->create([
             'caption' => $data['caption'],
             'image' => $path,
         ]);
-        return redirect('/profiles/' . auth()->user()->id);
+        return redirect(route('profiles.show', $post->user->profile));
     }
 
     public function show(Post $post)
@@ -56,7 +56,7 @@ class PostController extends Controller
     {
         File::delete(public_path($post->image));
         $post->delete();
-        return redirect('/profiles/' . auth()->user()->id);
+        return redirect(route('profiles.show', $post->user->profile));
 
     }
 }
