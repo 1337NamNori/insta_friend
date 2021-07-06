@@ -4,14 +4,15 @@
         <div class="card mt-3">
             <div class="row no-gutters">
                 <div class="col col-lg-8 col-12">
-                    <img src="/storage/{{ $post->image }}" alt="Post" class="card-img">
+                    <img src="{{ $post->image }}" alt="Post" class="card-img">
                 </div>
                 <div class="col col-lg-4 col-12">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
                                 <a href="{{ route('profiles.show',$post->user->profile) }}" class="text-dark">
-                                    <img src="/storage/{{ $post->user->profile->avatar }}" alt="Avatar" class="rounded-circle mr-3"
+                                    <img src="{{ $post->user->profile->avatar ?? '/images/temp/default.webp' }}"
+                                         alt="Avatar" class="rounded-circle mr-3"
                                          style="width:40px;">
                                 </a>
                                 <a href="{{ route('profiles.show',$post->user->profile) }}" class="text-dark">
@@ -42,7 +43,8 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <a href="{{ route('profiles.show',$post->user->profile) }}">
-                                <img src="/storage/{{ $post->user->profile->avatar }}" alt="Avatar" class="rounded-circle mr-3"
+                                <img src="{{ $post->user->profile->avatar ?? '/images/temp/default.webp' }}"
+                                     alt="Avatar" class="rounded-circle mr-3"
                                      style="width:40px;height:40px;">
                             </a>
                             <div>

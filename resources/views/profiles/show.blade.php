@@ -4,7 +4,7 @@
     <div class="container p-0">
         <div class="row p-3 d-none d-md-flex">
             <div class="col col-4 d-flex justify-content-center align-items-center">
-                <img src="/storage/{{ $profile->avatar }}" class="rounded-circle w-75" alt="Profile Avatar">
+                <img src="{{ $profile->avatar ?? '/images/temp/default.webp' }}" class="rounded-circle w-75" alt="Profile Avatar">
             </div>
             <div class="col col-8 d-flex flex-column justify-content-center ">
                 <div class="d-flex align-items-center mb-2">
@@ -29,7 +29,7 @@
         </div>
         <div class="row no-gutters d-sm-block d-md-none">
             <div class="col col-4 p-3 d-flex justify-content-start align-items-start">
-                <img src="/storage/{{ $profile->avatar }}" class="rounded-circle w-100" alt="Profile Avatar">
+                <img src="{{ $profile->avatar ?? '/images/temp/default.webp' }}" class="rounded-circle w-100" alt="Profile Avatar">
             </div>
             <div class="col col-8 p-3 d-flex flex-column justify-content-center">
                 <h3 class="p-0">{{ $profile->user->username }}</h3>
@@ -64,7 +64,7 @@
             @foreach($posts as $post)
                 <div class="col col-4 mt-md-3 px-md-2">
                     <a href="{{ route('posts.show',$post->id) }}">
-                        <img src="/storage/{{ $post->image }}" alt="Post" class="w-100">
+                        <img src="{{ $post->image }}" alt="Post" class="w-100">
                     </a>
                 </div>
             @endforeach

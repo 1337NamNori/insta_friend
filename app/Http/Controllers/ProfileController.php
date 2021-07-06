@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
@@ -26,11 +27,11 @@ class ProfileController extends Controller
             'name' => 'required',
             'description' => '',
             'url' => 'nullable|URL',
-            'avatar' => 'sometimes|file|image|max:5000'
+            'avatar' => 'sometimes|file|image|max:1000'
         ]);
         if (request()->has('avatar')) {
-            if ($profile->avatar && is_file(public_path('storage/' . $profile->avatar))) {
-                unlink(public_path('storage/' . $profile->avatar));
+            if ($profile->avatar && is_file(public_path($profile->avatar))) {
+                unlink(public_path($profile->avatar));
             }
         }
         $profile->update($data);
@@ -41,11 +42,11 @@ class ProfileController extends Controller
     protected function storeImage($profile)
     {
         if (request()->has('avatar')) {
-            $imagePath = request('avatar')->store('avatars', 'public');
-            $image = Image::make(public_path('storage/' . $imagePath))->fit(300, 300);
-            $image->save();
+            $image = request()->file('avatar');
+            $path = '/images/avatars/' . Str::random(8) . '-' . $image->getClientOriginalName();
+            Image::make($image)->fit(300, 300)->save(public_path($path));
             $profile->update([
-                'avatar' => $imagePath
+                'avatar' => $path
             ]);
         }
     }

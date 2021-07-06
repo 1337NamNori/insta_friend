@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
@@ -18,17 +20,16 @@ class PostController extends Controller
     {
         $data = request()->validate([
             'caption' => '',
-            'image' => 'required|file|image|max:5000',
+            'image' => 'required|file|image|max:1000',
         ]);
 
-        $imagePath = request('image')->store('uploads', 'public');
-        $image = Image::make(public_path('storage/' . $imagePath))->fit(1200, 1200);
-        $image->save();
-
+        $image = request()->file('image');
+        $path = '/images/posts/' . Str::random(8) . '-' . $image->getClientOriginalName();
+        Image::make($image)->fit(1200, 1200)->save(public_path($path));
 
         auth()->user()->posts()->create([
             'caption' => $data['caption'],
-            'image' => $imagePath,
+            'image' => $path,
         ]);
         return redirect('/profiles/' . auth()->user()->id);
     }
@@ -53,7 +54,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        File::delete(public_path('storage/' . $post->image));
+        File::delete(public_path($post->image));
         $post->delete();
         return redirect('/profiles/' . auth()->user()->id);
 
