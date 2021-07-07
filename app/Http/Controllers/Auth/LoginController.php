@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -27,40 +25,48 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/home';
+
+    /**
+     * Login username to be used by the controller.
+     *
+     * @var string
+     */
+    protected $username;
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+
+        $this->username = $this->findUsername();
     }
 
     /**
-     * Create a new controller instance.
+     * Get the login username to be used by the controller.
      *
-     * @return void
+     * @return string
      */
-    public function login(Request $request)
+    public function findUsername()
     {
-        $input = $request->all();
+        $login = request()->input('login');
 
-        $this->validate($request, [
-            'username' => 'required',
-            'password' => 'required',
-        ]);
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        if (auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password']))) {
-            return redirect()->route('home');
-        } else {
-            return redirect()->route('login')
-                ->with('error', 'Email-Address And Password Are Wrong.');
-        }
+        request()->merge([$fieldType => $login]);
 
+        return $fieldType;
     }
 
+    /**
+     * Get username property.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return $this->username;
+    }
 }

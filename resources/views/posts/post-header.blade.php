@@ -17,14 +17,20 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="{{ route('posts.edit',$post) }}">Edit caption</a>
-            <a class="dropdown-item" href="#">Set private</a>
-            <hr class="my-1">
-            <form action="{{ route('posts.destroy',$post) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="dropdown-item">Delete</button>
-            </form>
+            <a class="dropdown-item" href="#">Share to...</a>
+            <a class="dropdown-item" href="#">Copy link</a>
+            @can('update',$post)
+                <hr class="my-1">
+                <a class="dropdown-item" href="{{ route('posts.edit',$post) }}">Edit caption</a>
+                <a class="dropdown-item" href="#">Set private</a>
+            @endcan
+            @can('delete',$post)
+                <form action="{{ route('posts.destroy',$post) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="dropdown-item text-danger">Delete</button>
+                </form>
+            @endcan
         </div>
     </div>
 </div>

@@ -11,6 +11,9 @@ use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth')->except('show');
+    }
     public function create()
     {
         return view('posts.create');
@@ -41,11 +44,13 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        $this->authorize('update',$post);
         return view('posts.edit', compact('post'));
     }
 
     public function update(Post $post)
     {
+        $this->authorize('update',$post);
         $post->update([
             'caption' => request('caption')
         ]);
@@ -54,6 +59,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $this->authorize('delete',$post);
         File::delete(public_path($post->image));
         $post->delete();
         return redirect(route('profiles.show', $post->user->profile));
