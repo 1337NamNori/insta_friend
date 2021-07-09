@@ -6,7 +6,7 @@
         <div class="row p-3 d-none d-md-flex">
             {{--            Avatar--}}
             <div class="col col-4 d-flex justify-content-center align-items-center">
-                <img src="{{ $profile->avatar ?? '/images/temp/default.webp' }}" class="rounded-circle w-75"
+                <img src="{{ $profile->getAvatar() }}" class="rounded-circle w-75"
                      alt="Profile Avatar">
             </div>
             {{--            Info--}}
@@ -15,16 +15,18 @@
                     <h3 class="mb-0 mr-3">{{ $profile->user->username }}</h3>
                     @can('update', $profile)
                         <a href="{{ route('profiles.edit',Auth::user()->profile) }}"
-                           class="btn btn-sm btn-outline-secondary">Edit
+                           class="btn btn-sm btn-outline-secondary btn-no-outline">Edit
                             profile</a>
+                    @else
+                        <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}" device="pc"></follow-btn>
                     @endcan
                 </div>
 
                 <div class="row mt-2">
                     <div class="col col-lg-6 col-sm-12 d-flex justify-content-between">
                         <p><strong>{{ $profile->user->posts->count() }} </strong>posts</p>
-                        <p><strong>538 </strong>followers</p>
-                        <p><strong>73 </strong>following</p>
+                        <p><strong>{{ $profile->followers->count() }} </strong>followers</p>
+                        <p><strong>{{ $profile->user->following->count() }} </strong>following</p>
                     </div>
                 </div>
 
@@ -38,7 +40,7 @@
         <div class="row no-gutters d-sm-block d-md-none">
             {{--            Avatar--}}
             <div class="col col-4 p-3 d-flex justify-content-start align-items-start">
-                <img src="{{ $profile->avatar ?? '/images/temp/default.webp' }}" class="rounded-circle w-100"
+                <img src="{{ $profile->getAvatar() }}" class="rounded-circle w-100"
                      alt="Profile Avatar">
             </div>
             {{--            Name and Edit Btn--}}
@@ -46,12 +48,14 @@
                 <h3 class="p-0">{{ $profile->user->username }}</h3>
                 @can('update', $profile)
                     <a href="{{ route('profiles.edit',Auth::user()->profile) }}"
-                       class="btn btn-sm btn-outline-secondary w-100">Edit
+                       class="btn btn-sm btn-outline-secondary btn-no-outline w-100">Edit
                         profile</a>
+                @else
+                    <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}" device="mobile"></follow-btn>
                 @endcan
             </div>
             {{--            Info--}}
-            <div class="col col-12 p-3">
+            <div class=" col col-12 p-3">
                 <strong>{{ $profile->name }}</strong>
                 <p class="mb-0">{{ $profile->description }}</p>
                 <a href="{{ $profile->url }}" class="text-truncate" style="max-width:150px;">{{ $profile->url }}</a>
@@ -65,11 +69,11 @@
                         <p>posts</p>
                     </div>
                     <div class="col col-4 d-flex flex-column align-items-center">
-                        <strong>583 </strong>
+                        <strong>{{ $profile->followers->count() }} </strong>
                         <p>followers</p>
                     </div>
                     <div class="col col-4 d-flex flex-column align-items-center">
-                        <strong>73 </strong>
+                        <strong>{{ $profile->user->following->count() }} </strong>
                         <p>following</p>
                     </div>
                 </div>
@@ -77,7 +81,7 @@
         </div>
         {{--        End Header for mobile--}}
         <div class="row no-gutters">
-            @foreach($posts as $post)
+            @foreach($profile->user->posts as $post)
                 <div class="col col-4 mt-md-3 px-md-2">
                     <a href="{{ route('posts.show',$post->id) }}">
                         <img src="{{ $post->image }}" alt="Post" class="w-100">

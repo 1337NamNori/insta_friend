@@ -22,3 +22,15 @@ body {
     outline: none !important;
     box-shadow: none !important;
 }
+
+.btn-no-outline:active,
+.btn-no-outline:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.btn-outline-black {
+    border-color: #393939;
+    color: #393939;
+    background-color: #fafafa;
+}

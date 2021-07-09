@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center">
         <a href="{{ route('profiles.show',$post->user->profile) }}" class="text-dark">
-            <img src="{{ $post->user->profile->avatar ?? '/images/temp/default.webp' }}"
+            <img src="{{ $post->user->profile->getAvatar() }}"
                  alt="Avatar" class="rounded-circle mr-3"
                  style="width:40px;">
         </a>

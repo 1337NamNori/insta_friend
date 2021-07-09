@@ -12,8 +12,8 @@ class ProfileController extends Controller
 {
     public function show(Profile $profile)
     {
-        $posts = $profile->user->posts;
-        return view('profiles.show', compact('profile', 'posts'));
+        $follow = auth()->user() ? auth()->user()->following->contains($profile->id) : false;
+        return view('profiles.show', compact('profile', 'follow'));
     }
 
     public function edit(Profile $profile)

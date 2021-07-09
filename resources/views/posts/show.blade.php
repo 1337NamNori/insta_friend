@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <a href="{{ route('profiles.show',$post->user->profile) }}">
-                                <img src="{{ $post->user->profile->avatar ?? '/images/temp/default.webp' }}"
+                                <img src="{{ $post->user->profile->getAvatar() }}"
                                      alt="Avatar" class="rounded-circle mr-3"
                                      style="width:40px;height:40px;">
                             </a>
