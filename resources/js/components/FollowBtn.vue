@@ -1,13 +1,13 @@
 <template>
     <div>
-        <button class="btn btn-sm btn-no-outline" v-bind:class="buttonClass" @click="followUser"
+        <button class="btn btn-sm btn-no-outline font-weight-bold" v-bind:class="buttonClass" @click="followUser"
                 v-text="buttonText"></button>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['username', 'follow', 'device'],
+    props: ['username', 'follow', 'display'],
     mounted() {
         console.log('Component mounted.')
     },
@@ -33,11 +33,22 @@ export default {
     ,
     computed: {
         buttonText() {
-            return this.status ? 'Unfollow' : 'Follow';
+            return this.status ? 'Following' : 'Follow';
         },
         buttonClass() {
-            if (this.device === 'pc') return this.status ? 'btn-outline-black' : 'btn-primary';
-            return this.status ? 'btn-outline-black w-100' : 'btn-primary w-100';
+            switch (this.display) {
+                case 'pc':
+                    return this.status ? 'btn-outline-black' : 'btn-primary';
+                    break;
+                case 'mobile':
+                    return this.status ? 'btn-outline-black w-100' : 'btn-primary w-100';
+                    break;
+                case 'home':
+                    return this.status ? 'btn-link-black text-decoration-none p-0' : 'btn-link text-decoration-none p-0';
+                    break;
+                default:
+                    return this.status ? 'btn-outline-black' : 'btn-primary';
+            }
         }
     }
 }

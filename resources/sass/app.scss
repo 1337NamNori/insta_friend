@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 // Variables
 @import 'variables';
@@ -7,8 +7,17 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+* {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
 body {
     background-color: #fafafa;
+}
+
+small {
+    font-size: 12px;
 }
 
 .btn-clear {
@@ -21,6 +30,7 @@ body {
 .btn-clear:focus {
     outline: none !important;
     box-shadow: none !important;
+    border: none !important;
 }
 
 .btn-no-outline:active,
@@ -30,7 +40,28 @@ body {
 }
 
 .btn-outline-black {
-    border-color: #393939;
+    border-color: #dbdbdb;
     color: #393939;
     background-color: #fafafa;
+}
+
+.btn-link-black {
+    outline: none;
+    border: none;
+    color: #393939;
+    background-color: #fafafa;
+}
+.btn-link-black:active,
+.btn-link-black:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.font-size-14 {
+    font-size: 14px;
+}
+
+.font-size-12 {
+    font-size: 12px;
 }

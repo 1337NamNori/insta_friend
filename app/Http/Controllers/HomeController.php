@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $users = auth()->user()->following()->pluck('profiles.user_id');
+        $posts = Post::whereIn('user_id', $users)->latest()->get();
+        $profiles = Profile::whereNotIn('user_id', $users)->latest()->take(5)->get();
+        return view('home', compact('posts', 'profiles'));
     }
 }

@@ -15,18 +15,18 @@
                     <h3 class="mb-0 mr-3">{{ $profile->user->username }}</h3>
                     @can('update', $profile)
                         <a href="{{ route('profiles.edit',Auth::user()->profile) }}"
-                           class="btn btn-sm btn-outline-secondary btn-no-outline">Edit
+                           class="btn btn-sm btn-outline-black btn-no-outline font-weight-bold">Edit
                             profile</a>
                     @else
-                        <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}" device="pc"></follow-btn>
+                        <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}" display="pc"></follow-btn>
                     @endcan
                 </div>
 
                 <div class="row mt-2">
                     <div class="col col-lg-6 col-sm-12 d-flex justify-content-between">
                         <p><strong>{{ $profile->user->posts->count() }} </strong>posts</p>
-                        <p><strong>{{ $profile->followers->count() }} </strong>followers</p>
-                        <p><strong>{{ $profile->user->following->count() }} </strong>following</p>
+                        <p><strong>{{ $profile->followers->count() - 1}} </strong>followers</p>
+                        <p><strong>{{ $profile->user->following->count() - 1 }} </strong>following</p>
                     </div>
                 </div>
 
@@ -48,10 +48,10 @@
                 <h3 class="p-0">{{ $profile->user->username }}</h3>
                 @can('update', $profile)
                     <a href="{{ route('profiles.edit',Auth::user()->profile) }}"
-                       class="btn btn-sm btn-outline-secondary btn-no-outline w-100">Edit
+                       class="btn btn-sm btn-outline-black btn-no-outline w-100 font-weight-bold">Edit
                         profile</a>
                 @else
-                    <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}" device="mobile"></follow-btn>
+                    <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}" display="mobile"></follow-btn>
                 @endcan
             </div>
             {{--            Info--}}
@@ -69,11 +69,11 @@
                         <p>posts</p>
                     </div>
                     <div class="col col-4 d-flex flex-column align-items-center">
-                        <strong>{{ $profile->followers->count() }} </strong>
+                        <strong>{{ $profile->followers->count() - 1}} </strong>
                         <p>followers</p>
                     </div>
                     <div class="col col-4 d-flex flex-column align-items-center">
-                        <strong>{{ $profile->user->following->count() }} </strong>
+                        <strong>{{ $profile->user->following->count() - 1}} </strong>
                         <p>following</p>
                     </div>
                 </div>

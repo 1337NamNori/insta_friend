@@ -1853,7 +1853,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['username', 'follow', 'device'],
+  props: ['username', 'follow', 'display'],
   mounted: function mounted() {
     console.log('Component mounted.');
   },
@@ -1878,11 +1878,25 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     buttonText: function buttonText() {
-      return this.status ? 'Unfollow' : 'Follow';
+      return this.status ? 'Following' : 'Follow';
     },
     buttonClass: function buttonClass() {
-      if (this.device === 'pc') return this.status ? 'btn-outline-black' : 'btn-primary';
-      return this.status ? 'btn-outline-black w-100' : 'btn-primary w-100';
+      switch (this.display) {
+        case 'pc':
+          return this.status ? 'btn-outline-black' : 'btn-primary';
+          break;
+
+        case 'mobile':
+          return this.status ? 'btn-outline-black w-100' : 'btn-primary w-100';
+          break;
+
+        case 'home':
+          return this.status ? 'btn-link-black text-decoration-none p-0' : 'btn-link text-decoration-none p-0';
+          break;
+
+        default:
+          return this.status ? 'btn-outline-black' : 'btn-primary';
+      }
     }
   }
 });
@@ -37443,7 +37457,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("button", {
-      staticClass: "btn btn-sm btn-no-outline",
+      staticClass: "btn btn-sm btn-no-outline font-weight-bold",
       class: _vm.buttonClass,
       domProps: { textContent: _vm._s(_vm.buttonText) },
       on: { click: _vm.followUser }

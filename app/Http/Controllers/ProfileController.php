@@ -10,6 +10,13 @@ use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
+    public function index()
+    {
+        $users = auth()->user()->following()->pluck('profiles.user_id');
+        $profiles = Profile::whereNotIn('user_id', $users)->latest()->get();
+        return view('profiles.index', compact('profiles'));
+    }
+
     public function show(Profile $profile)
     {
         $follow = auth()->user() ? auth()->user()->following->contains($profile->id) : false;
