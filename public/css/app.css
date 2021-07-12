@@ -10061,3 +10061,15 @@ small {
 .font-size-12 {
   font-size: 12px;
 }
+
+.line-height-0 {
+  line-height: 0;
+}
+
+.border-radius-0 {
+  border-radius: 0;
+}
+
+.font-size-25 {
+  font-size: 25px;
+}

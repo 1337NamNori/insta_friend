@@ -15,7 +15,7 @@
                     <h3 class="mb-0 mr-3">{{ $profile->user->username }}</h3>
                     @can('update', $profile)
                         <a href="{{ route('profiles.edit',Auth::user()->profile) }}"
-                           class="btn btn-sm btn-outline-black btn-no-outline font-weight-bold">Edit
+                           class="btn btn-sm btn-outline-black btn-no-outline font-weight-bold font-size-14">Edit
                             profile</a>
                     @else
                         <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}" display="pc"></follow-btn>
@@ -48,7 +48,7 @@
                 <h3 class="p-0">{{ $profile->user->username }}</h3>
                 @can('update', $profile)
                     <a href="{{ route('profiles.edit',Auth::user()->profile) }}"
-                       class="btn btn-sm btn-outline-black btn-no-outline w-100 font-weight-bold">Edit
+                       class="btn btn-sm btn-outline-black btn-no-outline w-100 font-weight-bold font-size-14">Edit
                         profile</a>
                 @else
                     <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}" display="mobile"></follow-btn>

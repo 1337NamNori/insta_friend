@@ -22,7 +22,7 @@
             @can('update',$post)
                 <hr class="my-1">
                 <a class="dropdown-item" href="{{ route('posts.edit',$post) }}">Edit caption</a>
-                <a class="dropdown-item" href="#">Set private</a>
+                <a class="dropdown-item" href="#">Archive</a>
             @endcan
             @can('delete',$post)
                 <form action="{{ route('posts.destroy',$post) }}" method="POST">

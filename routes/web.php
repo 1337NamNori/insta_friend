@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::resource('profiles', \App\Http\Controllers\ProfileController::class)->only('show', 'edit', 'update');
 Route::resource('posts', \App\Http\Controllers\PostController::class)->except('index');
 Route::post('/follow/{profile}', [\App\Http\Controllers\FollowsController::class, 'store']);
+Route::post('/like/{post}', [\App\Http\Controllers\LikeController::class, 'store']);
 Route::get('suggest', [\App\Http\Controllers\ProfileController::class, 'index'])->name('suggest');
 \Illuminate\Support\Facades\Auth::routes();
 

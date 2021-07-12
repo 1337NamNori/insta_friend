@@ -1,6 +1,7 @@
 <template>
     <div>
-        <button class="btn btn-sm btn-no-outline font-weight-bold" v-bind:class="buttonClass" @click="followUser"
+        <button class="btn btn-sm btn-no-outline font-weight-bold"
+                v-bind:class="buttonClass" @click="followUser"
                 v-text="buttonText"></button>
     </div>
 </template>
@@ -38,16 +39,16 @@ export default {
         buttonClass() {
             switch (this.display) {
                 case 'pc':
-                    return this.status ? 'btn-outline-black' : 'btn-primary';
+                    return this.status ? 'btn-outline-black font-size-14' : 'btn-primary font-size-14';
                     break;
                 case 'mobile':
-                    return this.status ? 'btn-outline-black w-100' : 'btn-primary w-100';
+                    return this.status ? 'btn-outline-black w-100 font-size-14' : 'btn-primary w-100 font-size-14';
                     break;
                 case 'home':
-                    return this.status ? 'btn-link-black text-decoration-none p-0' : 'btn-link text-decoration-none p-0';
+                    return this.status ? 'btn-link-black btn-clear text-decoration-none p-0 font-size-12' : 'btn-link btn-clear text-decoration-none p-0 font-size-12';
                     break;
                 default:
-                    return this.status ? 'btn-outline-black' : 'btn-primary';
+                    return this.status ? 'btn-outline-black font-size-14' : 'btn-primary font-size-14';
             }
         }
     }
