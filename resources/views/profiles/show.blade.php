@@ -18,7 +18,8 @@
                            class="btn btn-sm btn-outline-black btn-no-outline font-weight-bold font-size-14">Edit
                             profile</a>
                     @else
-                        <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}" display="pc"></follow-btn>
+                        <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}"
+                                    display="pc"></follow-btn>
                     @endcan
                 </div>
 
@@ -51,7 +52,8 @@
                        class="btn btn-sm btn-outline-black btn-no-outline w-100 font-weight-bold font-size-14">Edit
                         profile</a>
                 @else
-                    <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}" display="mobile"></follow-btn>
+                    <follow-btn username="{{  $profile->user->username }}" follow="{{ $follow }}"
+                                display="mobile"></follow-btn>
                 @endcan
             </div>
             {{--            Info--}}
@@ -81,13 +83,20 @@
         </div>
         {{--        End Header for mobile--}}
         <div class="row no-gutters">
-            @foreach($profile->user->posts as $post)
+            @forelse($profile->user->posts as $post)
                 <div class="col col-4 mt-md-3 px-md-2">
                     <a href="{{ route('posts.show',$post->id) }}">
                         <img src="{{ $post->image }}" alt="Post" class="w-100">
                     </a>
                 </div>
-            @endforeach
+            @empty
+                <div class="col col-8 offset-2 text-center mt-5">
+                    <p>
+                        There is no post.
+                    </p>
+                    <a href="{{ route('posts.create') }}" class="btn btn-primary">Add a new Post</a>
+                </div>
+            @endforelse
         </div>
     </div>
 @endsection
