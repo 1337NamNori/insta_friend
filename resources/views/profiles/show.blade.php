@@ -90,12 +90,14 @@
                     </a>
                 </div>
             @empty
-                <div class="col col-8 offset-2 text-center mt-5">
-                    <p>
-                        There is no post.
-                    </p>
-                    <a href="{{ route('posts.create') }}" class="btn btn-primary">Add a new Post</a>
-                </div>
+                @if(Auth::user()->id == $profile->user_id)
+                    <div class="col col-8 offset-2 text-center mt-5">
+                        <p>
+                            There is no post.
+                        </p>
+                        <a href="{{ route('posts.create') }}" class="btn btn-primary">Add a new Post</a>
+                    </div>
+                @endif
             @endforelse
         </div>
     </div>
